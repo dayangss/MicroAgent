@@ -104,4 +104,5 @@ def load_memory(cwd: str) -> str:
 
     sections = ["# Project Instructions"]
     for file_path, content in discovered:
-        rel_path = os.path.relpath(file_path, cwd) if os.path.isabs(file_path
+        sections.append(f"## {file_path}\n\n{content}")
+    return "\n\n".join(sections)
