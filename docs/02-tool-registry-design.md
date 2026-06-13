@@ -65,5 +65,4 @@ class ToolRegistry:
 ```
 注册 9 个工具 → to_openai_schema() → 9 条 schema
 execute("unknown") → ToolResult(is_error=True)
-execute("calculator", {"expression":"2+2"}) → ToolResult(content="4")
-```
+execute("

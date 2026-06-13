@@ -88,5 +88,4 @@ def run(
   消息: 7 条
 
 ✅ 消息类型、ToolRegistry、agent loop 三个模块协同正常
-✅ 并行 tool calls 正确执行并返回结果给模型
-✅ 循环检测、超时、错误处理路径均已测试
+✅ 并行 tool calls 正确

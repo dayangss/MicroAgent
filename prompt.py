@@ -1,6 +1,6 @@
 """micro_agent/prompt.py — Build system prompt from registry, cwd, and memory."""
 
-from .tools import ToolRegistry
+from .tool_registry import ToolRegistry
 
 
 def build_system_prompt(cwd: str, registry: ToolRegistry, memory: str = "") -> str:
@@ -10,7 +10,6 @@ def build_system_prompt(cwd: str, registry: ToolRegistry, memory: str = "") -> s
         f"Current working directory: {cwd}",
         "",
     ]
-
     names = registry.list_names()
     if names:
         bullet = "\n".join(f"  - {n}" for n in names)
@@ -19,7 +18,6 @@ def build_system_prompt(cwd: str, registry: ToolRegistry, memory: str = "") -> s
     else:
         parts.append("No tools available. Answer from knowledge only.")
     parts.append("")
-
     parts.extend([
         "Behavior rules:",
         "- Still working -> start with <progress>. Continue next step.",
@@ -30,8 +28,6 @@ def build_system_prompt(cwd: str, registry: ToolRegistry, memory: str = "") -> s
         "- Don't make subjective choices unless explicitly asked.",
         "",
     ])
-
     if memory:
         parts.append(f"Additional context:\n{memory}\n")
-
     return "\n".join(parts)

@@ -189,12 +189,4 @@ def from_openai_response(
                 args = {}
             calls.append(AssistantToolCall(
                 tool_use_id=tc.id,
-                tool_name=tc.function.name,
-                input=args,
-            ))
-        return calls
-
-    if response_message.content:
-        return [AssistantMessage(content=response_message.content)]
-
-    return []
+                tool_name=tc.funct
