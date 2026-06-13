@@ -1,11 +1,11 @@
 [build-system]
 requires = ["setuptools>=64", "wheel"]
-build-backend = "setuptools.backends._legacy:_Backend"
+build-backend = "setuptools.build_meta"
 
 [project]
 name = "micro-agent"
 version = "0.2.0"
-description = "A lightweight terminal coding assistant — Python edition"
+description = "A lightweight terminal coding assistant"
 readme = "README.md"
 requires-python = ">=3.10"
 license = {text = "MIT"}
@@ -26,4 +26,5 @@ micro-agent = "micro_agent.tty_app:main"
 micro-agent-simple = "micro_agent.main:main"
 
 [tool.setuptools.packages.find]
-include = ["micro_agent*"]
+where = ["."]
+include = ["micro_agent", "micro_agent.*"]
