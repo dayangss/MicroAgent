@@ -1,0 +1,7 @@
+#!/usr/bin/env python3
+"""CLI entry: micro-agent"""
+import os, sys
+# Add micro_agent to path if not installed
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from micro_agent.tty_app import main
+main()

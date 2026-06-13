@@ -1,22 +1,14 @@
 # micro_agent/tty_app.py
-"""TUI app — main entry point for interactive agent shell."""
+"""TUI app — entry point for interactive agent shell."""
 
-import os, sys, json
+import os, sys
 from pathlib import Path
 
-# Ensure parent is on path
-_parent = Path(__file__).resolve().parent.parent
-if str(_parent) not in sys.path:
-    sys.path.insert(0, str(_parent))
-
-from dotenv import load_dotenv
-_d = Path(__file__).resolve().parent
-env_file = _d.parent / "agent_project" / ".env"
-if env_file.exists():
-    load_dotenv(env_file)
+# micro_agent should be importable
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from micro_agent.tui.screen import (
-    create_session, print_agent_header, print_tool_step,
+    create_session, print_agent_header,
 )
 from micro_agent.tui.input_parser import parse_command, get_command_help
 from micro_agent.main import create_agent
@@ -42,7 +34,6 @@ def main():
         if not line:
             continue
 
-        # Handle /commands
         cmd = parse_command(line)
         if cmd is not None:
             if cmd in ("/exit", "/quit", "/q"):
@@ -56,11 +47,10 @@ def main():
             elif cmd == "/memory":
                 from micro_agent.memory import load_memory
                 mem = load_memory(cwd)
-                print(f"\nMemory:\n{mem}\n" if mem else "\nNo memory files found.\n")
+                print(f"\nMemory:\n{mem}\n" if mem else "\nNo memory found.\n")
             continue
 
-        # Run agent
-        print()  # blank line before output
+        print()
         answer, history = run_agent(
             prompt=line,
             registry=registry,
