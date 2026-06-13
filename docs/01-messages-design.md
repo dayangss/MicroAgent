@@ -68,4 +68,7 @@ agent loop 不再直接拼 dict，而是用 `to_openai_format(msgs)` 转换。
   ✅ role: user  
   ✅ role: assistant (含 tool_calls)
   ✅ role: tool
-  ✅ role: ass
+  ✅ role: assistant (最终答案)
+```
+
+全部通过。下一步：ToolRegistry。
