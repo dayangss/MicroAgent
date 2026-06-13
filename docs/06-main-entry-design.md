@@ -52,5 +52,4 @@ Step 1: execute_python → ok
 Step 1: list_directory → ok  (parallel)
 
 answer: 5050 + directory listing
-messages: 7 total (system -> user -> assistant_tool_calls -> tool_results -> assistant)
-```
+messages: 7 total (system -> user -> a
