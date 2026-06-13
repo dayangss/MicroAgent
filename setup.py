@@ -1,8 +1,8 @@
-from setuptools import setup, find_packages
+from setuptools import setup
 setup(
     name="micro-agent",
     version="0.2.0",
-    packages=find_packages(include=["micro_agent", "micro_agent.*"]),
+    packages=["micro_agent", "micro_agent.tools", "micro_agent.compact", "micro_agent.tui"],
     install_requires=[
         "openai>=1.0",
         "python-dotenv>=1.0",
@@ -13,4 +13,7 @@ setup(
     entry_points={
         "console_scripts": [
             "micro-agent=micro_agent.tty_app:main",
-            "micro-agent-simple=micr
+            "micro-agent-simple=micro_agent.main:main",
+        ],
+    },
+)
