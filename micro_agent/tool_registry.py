@@ -1,8 +1,15 @@
-"""micro_agent/tool_registry.py — ToolRegistry: register, find, execute, schema gen."""
+"""micro_agent/tool_registry.py — ToolRegistry: register, find, execute, schema gen.
+
+Aligned with MiniCode src/tool.ts.
+"""
+
+from __future__ import annotations
 
 import json
 from dataclasses import dataclass, field
 from typing import Any, Callable, Dict, List
+
+from .skills import SkillSummary
 
 
 @dataclass
@@ -28,8 +35,12 @@ class ToolDefinition:
 
 
 class ToolRegistry:
-    def __init__(self):
+    def __init__(self, tools: List[ToolDefinition] | None = None,
+                 skills: List[SkillSummary] | None = None):
         self._tools: Dict[str, ToolDefinition] = {}
+        self._skills: List[SkillSummary] = skills or []
+        if tools:
+            self.register_many(tools)
 
     def register(self, tool: ToolDefinition) -> None:
         self._tools[tool.name] = tool
@@ -38,8 +49,18 @@ class ToolRegistry:
         for t in tools:
             self.register(t)
 
+    def add_tools(self, tools: List[ToolDefinition]) -> None:
+        existing = set(self._tools.keys())
+        for t in tools:
+            if t.name not in existing:
+                self._tools[t.name] = t
+                existing.add(t.name)
+
     def find(self, name: str) -> ToolDefinition | None:
         return self._tools.get(name)
+
+    def get_skills(self) -> List[SkillSummary]:
+        return self._skills
 
     def list_names(self) -> List[str]:
         return list(self._tools.keys())
@@ -48,7 +69,6 @@ class ToolRegistry:
         return [t.to_openai_schema() for t in self._tools.values()]
 
     def execute(self, name: str, args: Dict[str, Any]) -> Any:
-        # Returns a ToolResult-like object
         from .messages import ToolResult
         tool = self._tools.get(name)
         if tool is None:

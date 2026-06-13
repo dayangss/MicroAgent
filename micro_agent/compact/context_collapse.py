@@ -1,7 +1,7 @@
 # micro_agent/compact/context_collapse.py
 """Tier 4: 上下文折叠 — 将冗长的工具结果压缩为简短摘要。"""
 
-from messages import ChatMessage, ToolResult, ContextSummary, AssistantToolCall
+from ..messages import ChatMessage, ToolResult, ContextSummary, AssistantToolCall
 
 MAX_TOOL_RESULT_LEN = 600
 

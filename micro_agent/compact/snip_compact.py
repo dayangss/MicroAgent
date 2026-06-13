@@ -1,7 +1,7 @@
 # micro_agent/compact/snip_compact.py
 """Tier 3: 快照压缩 — 移除中间的工具互动对，保留首尾。"""
 
-from messages import ChatMessage, AssistantToolCall, ToolResult, SnipBoundary
+from ..messages import ChatMessage, AssistantToolCall, ToolResult, SnipBoundary
 
 
 def snip_compact(messages: list[ChatMessage], max_messages: int = 30) -> tuple[list[ChatMessage], SnipBoundary | None]:

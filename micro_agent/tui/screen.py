@@ -46,10 +46,12 @@ def create_session() -> PromptSession:
     )
 
 
-def print_agent_header(workspace: str, tools_count: int, tool_names: list[str]):
+def print_agent_header(workspace: str, tools_count: int, tool_names: list[str],
+                       skill_count: int = 0):
     print(f"\nMicroAgent v0.2")
     print(f"Workspace: {workspace}")
-    print(f"Tools ({tools_count}): {', '.join(tool_names[:8])}")
+    print(f"Tools: {tools_count} | Skills: {skill_count}")
+    print(f"  {', '.join(tool_names[:8])}")
     if len(tool_names) > 8:
         print(f"  ... and {len(tool_names) - 8} more")
     print("/help for commands | Ctrl+D to exit\n")

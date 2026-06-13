@@ -1,7 +1,7 @@
 # micro_agent/compact/microcompact.py
 """Tier 1: 微压缩 — 删除未完成的工具调用（有 tool_call 无结果）"""
 
-from messages import ChatMessage, AssistantToolCall, ToolResult
+from ..messages import ChatMessage, AssistantToolCall, ToolResult
 
 
 def microcompact(messages: list[ChatMessage]) -> list[ChatMessage]:

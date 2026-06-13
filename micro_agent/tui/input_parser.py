@@ -8,6 +8,7 @@ COMMANDS = {
     "/help": "Show available commands.",
     "/memory": "Show memory files loaded.",
     "/tools": "List available tools.",
+    "/skills": "List discovered skills.",
     "/exit": "Exit MicroAgent.",
     "/q": "Exit MicroAgent.",
     "/quit": "Exit MicroAgent.",

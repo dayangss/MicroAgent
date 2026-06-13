@@ -1,7 +1,7 @@
 # micro_agent/compact/auto_compact.py
 """Tier 2: 自动压缩 — 消息太多时调用 LLM 生成摘要。"""
 
-from messages import ChatMessage, ContextSummary, SystemMessage, UserMessage
+from ..messages import ChatMessage, ContextSummary, SystemMessage, UserMessage
 
 
 def estimate_tokens(messages: list[ChatMessage]) -> int:

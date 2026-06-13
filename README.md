@@ -39,12 +39,37 @@ python -m micro_agent
 
 ## Configuration
 
-Create `.env` file in project root or `~/.micro_agent/.env`:
-```
-DEEPSEEK_API_KEY=sk-your-key
+MicroAgent searches for API keys in this order:
+
+1. `.env` in current working directory
+2. `.env` in parent directories (up to 4 levels)
+3. `~/.micro_agent/.env` — **recommended for global setup**
+
+### Global API key (all projects, set once)
+
+**Windows (PowerShell):**
+```powershell
+mkdir $env:USERPROFILE\.micro_agent -Force
+@"
+DEEPSEEK_API_KEY=sk-your-key-here
 DEEPSEEK_BASE_URL=https://api.deepseek.com
 DEEPSEEK_MODEL=deepseek-chat
+"@ | Out-File -FilePath $env:USERPROFILE\.micro_agent\.env -Encoding utf8
 ```
+
+**macOS / Linux:**
+```bash
+mkdir -p ~/.micro_agent
+cat > ~/.micro_agent/.env << 'EOF'
+DEEPSEEK_API_KEY=sk-your-key-here
+DEEPSEEK_BASE_URL=https://api.deepseek.com
+DEEPSEEK_MODEL=deepseek-chat
+EOF
+```
+
+### Per-project key
+
+Create a `.env` file in the project root with the same format. Project `.env` takes priority over global `~/.micro_agent/.env`. Get a key from [DeepSeek Platform](https://platform.deepseek.com/api_keys).
 
 ## Architecture
 

@@ -35,7 +35,7 @@ def create_agent(workspace: str | None = None):
         raise RuntimeError("DEEPSEEK_API_KEY not set")
     cwd = workspace or os.getcwd()
     client = OpenAI(api_key=key, base_url=os.getenv("DEEPSEEK_BASE_URL", "https://api.deepseek.com"))
-    registry = create_registry()
+    registry = create_registry(cwd)
     memory = load_memory(cwd)
     system_prompt = build_system_prompt(cwd, registry, memory)
     return client, registry, system_prompt
@@ -44,7 +44,8 @@ def create_agent(workspace: str | None = None):
 def main():
     cwd = os.getcwd()
     client, registry, system_prompt = create_agent(cwd)
-    print(f"MicroAgent v0.2.0 | {cwd} | {len(registry)} tools: {', '.join(registry.list_names())}")
+    skill_count = len(registry.get_skills())
+    print(f"MicroAgent v0.2.0 | {cwd} | {len(registry)} tools | {skill_count} skills")
     while True:
         try: user_input = input("> ").strip()
         except (EOFError, KeyboardInterrupt): print("\nBye."); break

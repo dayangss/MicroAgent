@@ -41,4 +41,6 @@ def build_system_prompt(
   ✅ 角色定义 — 包含
   ✅ cwd 路径 — 包含
   ✅ 工具列表 (含数量) — calculator, search
-  ✅ 行为规则 (<progress>/<final>) — 包含
+  ✅ 行为规则 (<progress>/<final>) — 包含
+  ✅ 对话记忆 — 追加到末尾
+```

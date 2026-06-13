@@ -20,7 +20,7 @@ def main():
     client, registry, system_prompt = create_agent(cwd)
 
     tool_names = registry.list_names()
-    print_agent_header(cwd, len(registry), tool_names)
+    print_agent_header(cwd, len(registry), tool_names, len(registry.get_skills()))
 
     session = create_session()
 
@@ -48,6 +48,13 @@ def main():
                 from micro_agent.memory import load_memory
                 mem = load_memory(cwd)
                 print(f"\nMemory:\n{mem}\n" if mem else "\nNo memory found.\n")
+            elif cmd == "/skills":
+                skills = registry.get_skills()
+                if skills:
+                    print(f"\n{len(skills)} skills discovered:\n" + "\n".join(
+                        f"  {s.name}  {s.description}  [{s.source}]" for s in skills) + "\n")
+                else:
+                    print("\nNo skills discovered.\n")
             continue
 
         print()

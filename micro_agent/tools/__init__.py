@@ -2,6 +2,7 @@
 """MicroAgent builtin tools — aligned with MiniCode tools/index.ts."""
 
 from ..tool_registry import ToolDefinition, ToolRegistry
+from ..skills import discover_skills
 from .web_search import web_search
 from .web_fetch import web_fetch
 from .list_files import list_files
@@ -10,10 +11,14 @@ from .write_file import write_file
 from .edit_file import edit_file
 from .grep_files import grep_files
 from .ask_user import ask_user
+from .load_skill import _create_load_skill_tool
 
 
-def create_registry() -> ToolRegistry:
-    reg = ToolRegistry()
+def create_registry(cwd: str) -> ToolRegistry:
+    skills = discover_skills(cwd)
+    load_skill_fn = _create_load_skill_tool(cwd)
+
+    reg = ToolRegistry(skills=skills)
     reg.register_many([
         ToolDefinition("web_search", "Search the public web using DuckDuckGo.",
             web_search, {"properties": {"query": {"type": "string"}}, "required": ["query"]}),
@@ -31,5 +36,7 @@ def create_registry() -> ToolRegistry:
             grep_files, {"properties": {"pattern": {"type": "string"}, "path": {"type": "string"}}, "required": ["pattern"]}),
         ToolDefinition("ask_user", "Ask the user a question and wait for reply.",
             ask_user, {"properties": {"question": {"type": "string"}}, "required": ["question"]}),
+        ToolDefinition("load_skill", "Load the full contents of a named SKILL.md so you can follow that workflow accurately.",
+            load_skill_fn, {"properties": {"name": {"type": "string"}}, "required": ["name"]}),
     ])
     return reg
